@@ -28,4 +28,8 @@ public class PersonService implements IPersonService {
     }
 
     // acrescentar save e delete
+    @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 }

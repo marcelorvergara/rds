@@ -31,6 +31,12 @@
                     <td><c:out value="${li.city}"/></td>
                 </tr>
             </c:forEach>
+
+            <form method="DELETE" action="/deletar/{alunoId}" >
+                <label for="alunoId">Deletar Aluno</label>
+                <input type="text" id="alunoId" >
+                <input type="submit">
+            </form>
         </table>
     </body>
 </html>
