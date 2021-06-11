@@ -8,6 +8,7 @@ package edu.infnet.service;
 import edu.infnet.model.Person;
 import edu.infnet.repository.PersonRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +32,15 @@ public class PersonService implements IPersonService {
     @Override
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Person> findById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public Person save(Person person) {
+        return repository.save(person);
     }
 }

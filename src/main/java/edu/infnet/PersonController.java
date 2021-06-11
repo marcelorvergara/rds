@@ -8,15 +8,18 @@ package edu.infnet;
 import edu.infnet.model.Person;
 import edu.infnet.service.IPersonService;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Supplier;
+import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -30,18 +33,53 @@ public class PersonController {
     @Autowired
     private IPersonService personService;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index() {
 
         log.info("passei aqui!");
         return "index";
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String deleteNews(@PathVariable Long id) {
+    @GetMapping("/deletar/{id}")
+    public String deletePessoa(@PathVariable Long id) {
         personService.deleteById(id);
 
-        return "index";
+        return "redirect:/persons";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String alterarPessoa(@PathVariable Long id, Model model) throws NotFoundException {
+
+        Person pessoa = personService.findById(id)
+                .orElseThrow(() -> new NotFoundException(id.toString()));
+
+        log.info("pessoa aqui" + pessoa);
+
+        model.addAttribute("pessoa", pessoa);
+
+        return "alterar";
+    }
+
+    @PostMapping("/update")
+    public String updatePessoa(@ModelAttribute("pessoaForm") Person pessoaForm) {
+
+        log.info("Pessoa form: " + pessoaForm);
+
+        Long id = pessoaForm.getId();
+
+        Person p = personService.findById(id).map(person -> {
+            person.setFirstName(pessoaForm.getFirstName());
+            person.setLastName(pessoaForm.getLastName());
+            person.setAddress(pessoaForm.getAddress());
+            person.setCity(pessoaForm.getCity());
+            return personService.save(person);
+        })
+                .orElseGet(() -> {
+                    pessoaForm.setId(id);
+                    return personService.save(pessoaForm);
+                });
+
+        return "redirect:/persons";
     }
 
     @GetMapping("/persons")
@@ -49,7 +87,7 @@ public class PersonController {
 
         List<Person> persons = personService.findAll();
 
-        model.addAttribute("persons", persons);
+        model.addAttribute("pessoasLst", persons);
 
         return "showPersons";
     }

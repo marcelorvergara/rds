@@ -7,6 +7,7 @@ package edu.infnet.service;
 
 import edu.infnet.model.Person;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -17,4 +18,8 @@ public interface IPersonService {
     List<Person> findAll();
 
     public void deleteById(Long id);
+
+    public Optional<Person> findById(Long id);
+
+    public Person save(Person person);
 }

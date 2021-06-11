@@ -8,17 +8,14 @@
         <version>2.5.0</version>
         <relativePath/>
     </parent>
-    <groupId>com.example</groupId>
+    <groupId>edu.infnet</groupId>
     <artifactId>basic</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-
     <name>RDS</name>
     <description>Demo project for Spring Boot</description>
-
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>11</java.version>
     </properties>
-
     <dependencies>
  
         <!--exemplo do john de mvc mariadb-->
@@ -47,18 +44,11 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+        <!--web view-->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-        
-        <dependency> 
-            <groupId>javax.servlet</groupId> 
-            <artifactId>servlet-api</artifactId> 
-            <version>2.5</version> 
-            <scope>provided</scope> 
-        </dependency> 
 
     </dependencies>
 

@@ -21,7 +21,7 @@ public class BasicApplication {
     @Bean
     CommandLineRunner initDatabase(PersonRepository personRepository) {
         return args -> {
-            log.info("Teste User 2" + personRepository.save(new Person("aluno 2", "sobrenome 2", "rua 5 beco 7", "rio de janeiro")));
+            log.info("Teste User 3" + personRepository.save(new Person("aluno 3", "sobrenome 3", "rua 7 beco 8", "rio de janeiro")));
 
         };
     }
