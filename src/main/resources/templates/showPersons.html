@@ -8,6 +8,41 @@
     </head>
     <body>
         <div class="container mt-4">
+            <h2>Cadastro de Pessoa</h2>
+            <form method="POST" th:object="${pessoaIns}" action="/inserir">
+                <div style="width: 390px">
+                <div class="form-group">
+                  <label for="firstName">Primeiro Nome:</label>
+                  <input type="text" class="form-control" id="firstName" 
+                         aria-describedby="primeiro nome" placeholder="Primeiro Nome" 
+                         th:field="*{firstName}">
+                  <small id="emailHelp" class="form-text text-muted">Cuidado para não colocar o último nome aqui.</small>
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Último Nome:</label>
+                  <input type="text" class="form-control" id="lastName" 
+                         aria-describedby="último nome" placeholder="Último Nome" 
+                         th:field="*{lastName}">
+                  <small id="emailHelp" class="form-text text-muted">Mais conhecido como sobrenome.</small>
+                </div>
+                <div class="form-group">
+                  <label for="address">Endereço:</label>
+                  <input type="text" class="form-control" id="address" 
+                         placeholder="Endereço" 
+                         th:field="*{address}">
+                </div>
+                <div class="form-group">
+                  <label for="city">Cidade:</label>
+                  <input type="text" class="form-control" id="city" 
+                         placeholder="Cidade" 
+                         th:field="*{city}">
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+            <br><!-- comment -->
+            <hr>
+            <br>    
             <h2>Lista de Pessoas</h2>
             <h5>Total de pessoas cadastradas: <span th:text="${pessoasLst.size}"></span></h5>
             <table class="table table-striped table-bordered border-primary table-sm">

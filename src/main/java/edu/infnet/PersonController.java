@@ -16,10 +16,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -82,12 +85,23 @@ public class PersonController {
         return "redirect:/persons";
     }
 
+    @RequestMapping(value = "/inserir")
+    public String regsitration(@ModelAttribute("pessoaForm") Person pessoaForm) {
+
+        personService.save(pessoaForm);
+
+        return "redirect:/persons";
+    }
+
     @GetMapping("/persons")
-    public String findPersons(Model model) {
+    public String findPersons(Model model
+    ) {
 
         List<Person> persons = personService.findAll();
 
         model.addAttribute("pessoasLst", persons);
+
+        model.addAttribute("pessoaIns", new Person());
 
         return "showPersons";
     }
